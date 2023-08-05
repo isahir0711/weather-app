@@ -12,6 +12,6 @@ export class SearchCityService {
 
   // Método para buscar ciudades por nombre
   searchCities(query: string):Observable<LocationResponseArray> {
-    return this.httpClient.get<LocationResponseArray>(`http://api.weatherapi.com/v1/search.json?key=8146256df27148489d742434230308&q=${query}`);
+    return this.httpClient.get<LocationResponseArray>(`https://api.weatherapi.com/v1/search.json?key=8146256df27148489d742434230308&q=${query}`);
   }
 }
