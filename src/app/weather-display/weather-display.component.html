@@ -1,0 +1,42 @@
+
+<div class="dashboard">
+    <div class="weather-side">
+        <form action="" class="search-form">
+            <input class="search-bar" type="text" placeholder="Search..." [formControl]="searchFormControl">
+            <ul class="cities-result" *ngIf="cities">
+                <li class="li-city" *ngFor="let city of cities"><button class="city-btn" (click)="newCity(city.lat,city.lon)">{{ city.name }} {{city.region}} {{city.country}}</button></li>
+              </ul>
+        </form>
+        <div class="current-data">
+            <h2 class="temperature">{{weatherData?.current?.temp_c | number: '1.0-0'}}C°</h2>
+            <h3 class="city-info">{{weatherData?.location?.name}} {{weatherData?.location?.region}}</h3>
+            <div class="condition">
+                <!-- night -->
+                <ng-container *ngIf="weatherData?.current?.is_day==0">
+                    <img class="weather-icon" src="assets/icons/animated/night/{{weatherData?.current?.condition?.text}}.svg" alt="">
+                </ng-container>
+                <!-- day -->
+                <ng-container *ngIf="weatherData?.current?.is_day==1">
+                    <img class="weather-icon" src="assets/icons/animated/day/{{weatherData?.current?.condition?.text}}.svg" alt="">
+                </ng-container>
+                
+                <p class="condition-text">{{weatherData?.current?.condition?.text}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="forecast-side">
+        <div class="card">
+            <div class="forecast-container" >
+                <ng-container *ngFor="let forecast of weatherData?.forecast?.forecastday">
+                    <div class="day">
+                        <img src="assets/icons/animated/day/{{forecast?.day?.condition?.text}}.svg" class="forecast-icon" alt="{{forecast?.day?.condition?.text}}">
+                        <p class="date-forecast">{{ forecast?.date | date:'EEEE' }}</p>
+                        <div class="temperatures">
+                            <p><b>{{ forecast?.day?.maxtemp_c | number: '1.0-0'}}°C-{{ forecast?.day?.mintemp_c | number: '1.0-0'}}°C</b></p>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
